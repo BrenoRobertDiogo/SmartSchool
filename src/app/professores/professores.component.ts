@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Professor } from '../models/professor';
 
 @Component({
   selector: 'app-professores',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./professores.component.css']
 })
 export class ProfessoresComponent implements OnInit {
-  public titulo = 'Professores';
-  public professorSelecionado: string = ''
+  public titulo: string = 'Professores';
+  public professorSelecionado!: Professor | undefined
 
   public professores: Array<any> = [
     { id: 1,nome: "Lauro",     disciplina: "Matemática"  },
@@ -23,11 +24,11 @@ export class ProfessoresComponent implements OnInit {
   }
   
   public voltar(): void{
-    this.professorSelecionado = ''
+    this.professorSelecionado = undefined
   }
 
-  public professorSelected(professor: any): void{
-    this.professorSelecionado = professor.nome
+  public professorSelected(professor: Professor): void{
+    this.professorSelecionado = professor
   }
 
 }
