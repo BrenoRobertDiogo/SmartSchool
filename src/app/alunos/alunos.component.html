@@ -1,0 +1,27 @@
+<app-titulo [tituloMandar]="titulo"></app-titulo>
+
+<div *ngIf="alunoSelecionado;">
+  Aluno selecionado: {{alunoSelecionado}}
+  <br>
+  <button class="btn btn-default">Voltar</button>
+</div>
+<div *ngIf="!alunoSelecionado;">Nenhum aluno selecionado</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">nome</th>
+      <th scope="col">sobrenome</th>
+      <th scope="col">telefone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let aluno of alunos" (click)="alunoSelect(aluno)">
+      <th scope="row">{{aluno.id}}</th>
+      <td>{{aluno.nome}}</td>
+      <td>{{aluno.sobrenome}}</td>
+      <td>{{aluno.telefone}}</td>
+    </tr>
+  </tbody>
+</table>
