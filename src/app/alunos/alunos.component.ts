@@ -29,4 +29,8 @@ export class AlunosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public voltar() {
+    this.alunoSelecionado = ''
+  }
+
 }

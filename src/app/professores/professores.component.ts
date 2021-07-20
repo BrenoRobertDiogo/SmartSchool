@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./professores.component.css']
 })
 export class ProfessoresComponent implements OnInit {
-  public titulo = 'Professores'
+  public titulo = 'Professores';
+  public professorSelecionado: string = ''
 
   public professores: Array<any> = [
     { id: 1,nome: "Lauro",     disciplina: "Matemática"  },
@@ -19,6 +20,14 @@ export class ProfessoresComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+  
+  public voltar(): void{
+    this.professorSelecionado = ''
+  }
+
+  public professorSelected(professor: any): void{
+    this.professorSelecionado = professor.nome
   }
 
 }

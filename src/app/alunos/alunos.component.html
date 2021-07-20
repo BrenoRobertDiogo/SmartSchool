@@ -1,27 +1,54 @@
-<app-titulo [tituloMandar]="titulo"></app-titulo>
-
 <div *ngIf="alunoSelecionado;">
-  Aluno selecionado: {{alunoSelecionado}}
-  <br>
-  <button class="btn btn-default">Voltar</button>
-</div>
-<div *ngIf="!alunoSelecionado;">Nenhum aluno selecionado</div>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">nome</th>
-      <th scope="col">sobrenome</th>
-      <th scope="col">telefone</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let aluno of alunos" (click)="alunoSelect(aluno)">
-      <th scope="row">{{aluno.id}}</th>
-      <td>{{aluno.nome}}</td>
-      <td>{{aluno.sobrenome}}</td>
-      <td>{{aluno.telefone}}</td>
-    </tr>
-  </tbody>
-</table>
+  <div class="row mt-1">
+    <div class="col-11">
+      <app-titulo [tituloMandar]="'Aluno: ' + alunoSelecionado"></app-titulo>
+    </div>
+    <div class="col-1"><button class="btn btn-dark mb-3" (click)="voltar()">Voltar</button></div>
+  </div>
+
+
+
+  <br>
+
+  <form>
+    <div class="row">
+      <div class="col-4 form-group">
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome">
+      </div>
+      <div class="col-4 form-group">
+          <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Sobrenome">
+      </div>
+    </div>
+    <div class="form-group col-4">
+      <input type="text" class="form-control mt-2" id="formGroupExampleInput3" placeholder="Telefone">
+    </div>
+
+
+  </form>
+
+</div>
+<div *ngIf="!alunoSelecionado;">
+  <app-titulo [tituloMandar]="titulo"></app-titulo>
+  Nenhum aluno selecionado
+  <br>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">nome</th>
+        <th scope="col">sobrenome</th>
+        <th scope="col">telefone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let aluno of alunos" (click)="alunoSelect(aluno)">
+        <th scope="row">{{aluno.id}}</th>
+        <td>{{aluno.nome}}</td>
+        <td>{{aluno.sobrenome}}</td>
+        <td>{{aluno.telefone}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
