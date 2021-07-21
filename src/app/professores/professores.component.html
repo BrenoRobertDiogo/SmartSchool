@@ -1,9 +1,9 @@
   <div *ngIf="professorSelecionado;">
     <div class="row mt-1">
-      <div class="col-11">
-        <app-titulo [tituloMandar]="'Professor: ' + professorSelecionado"></app-titulo>
+      <div class="col-10">
+        <app-titulo [tituloMandar]="'Professor: ' + professorSelecionado.id"></app-titulo>
       </div>
-      <div class="col-1"><button class="btn btn-dark mb-3" (click)="voltar()">Voltar</button></div>
+      <div class="col-2"><button class="btn btn-dark mb-3" (click)="voltar()">Voltar</button></div>
     </div>
   
   
@@ -13,10 +13,10 @@
     <form>
       <div class="row">
         <div class="col-5 form-group">
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome">
+            <input type="text" class="form-control" value="{{professorSelecionado.nome}}" id="formGroupExampleInput" placeholder="Nome">
         </div>
         <div class="col-4 form-group">
-            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Disciplina">
+            <input type="text" class="form-control" value="{{professorSelecionado.disciplina}}" id="formGroupExampleInput2" placeholder="Disciplina">
         </div>
       </div>
   
@@ -37,12 +37,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let professor of professores" (click)="professorSelected(professor)">
+        <tr *ngFor="let professor of professores" >
           <th scope="row">{{professor.id}}</th>
           <td>{{professor.nome}}</td>
           <td>{{professor.disciplina}}</td>
+          <td>
+            <button class="btn text-dark btn-sm btn-outline-warning" (click)="professorSelected(professor)">Ver</button>
+            <button class="btn btn-sm btn-outline-primary" (click)="openModal(template)">Alunos</button>
+            <button class="btn btn-sm btn-outline-danger">X</button>
+          </td>
         </tr>
       </tbody>
     </table>
 
   </div>
+
+
+  <ng-template #template>
+    <div class="modal-body">
+      <app-alunos></app-alunos>
+    </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark pull-right" (click)="modalRef.hide()">Fechar</button>
+   </div>
+</ng-template>

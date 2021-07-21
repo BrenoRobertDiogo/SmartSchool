@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -33,6 +34,8 @@ import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
     BsDropdownModule,
     BrowserAnimationsModule,
     ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
 
 
   ],
