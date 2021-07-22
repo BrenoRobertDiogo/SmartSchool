@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Professor } from '../models/Professor';
 import { ProfessorService } from './professor.service';
@@ -12,6 +13,7 @@ export class ProfessoresComponent implements OnInit {
   public titulo: string = 'Professores';
   public professorSelecionado!: Professor | undefined
   public modalRef!: BsModalRef;
+  public professorForm!: FormGroup;
 
   public professores!: Array<Professor>;
   
@@ -29,11 +31,48 @@ export class ProfessoresComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    private professorService: ProfessorService
-  ) { }
+    private professorService: ProfessorService,
+    private fb: FormBuilder,
+  ) {
+    this.criarForm();
+  }
+
+  professorSelected(professor: Professor) {
+    this.professorSelecionado = professor
+    this.professorForm.patchValue(professor)
+  }
 
   ngOnInit() {
     this.carregarProfessor();
+  }
+
+  criarForm(){
+    this.professorForm = this.fb.group({
+      id: [''],
+      nome: [this.professorSelecionado?.nome, Validators.required],
+      
+
+    })
+  }
+
+  professorSubmit() {
+    
+    this.salvarProfessor(this.professorForm.value)
+  }
+
+  public salvarProfessor(professor: Professor){
+    this.professorService.put(professor.id, professor).subscribe(
+      (retorno: Professor): void => {
+        console.log(retorno);
+        this.carregarProfessor();
+
+
+      },
+      (error: any): void => {
+        console.log(error);
+        
+      }
+    );
   }
 
   carregarProfessor() {
@@ -50,10 +89,6 @@ export class ProfessoresComponent implements OnInit {
   
   public voltar(): void{
     this.professorSelecionado = undefined
-  }
-
-  public professorSelected(professor: Professor): void{
-    this.professorSelecionado = professor
   }
 
 }

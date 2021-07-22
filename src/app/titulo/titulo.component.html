@@ -1,3 +1,15 @@
-<h1 class="d-flex justify-content-center">
-  {{ tituloMandar }}
-</h1>
+<div class="container">
+  <div class="row mt-1">
+    <div class="col-10">
+      <h1 class="d-flex justify-content-center">
+        {{ tituloMandar }}
+      </h1>
+    </div>
+    <div class="col-2">
+      <!-- <button class="btn btn-dark mb-3" (click)="voltar()">Voltar</button> -->
+      <ng-content ></ng-content>
+      
+    </div>
+  </div>
+
+</div>

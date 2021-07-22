@@ -2,12 +2,11 @@
 
   <div class="col-6" *ngIf="alunoSelecionado;">
 
-    <div class="row mt-1">
-      <div class="col-10">
-        <app-titulo [tituloMandar]="'Aluno: ' + alunoSelecionado.id"></app-titulo>
-      </div>
-      <div class="col-2"><button class="btn btn-sm btn-dark mb-3" (click)="voltar()">Voltar</button></div>
-    </div>
+    
+        <app-titulo [tituloMandar]=" (alunoSelecionado.id === undefined || alunoSelecionado.id === 0  ? 'Novo aluno' : 'Aluno: ' + alunoSelecionado.id)">
+          <div class="col-2"><button class="btn btn-sm btn-dark mb-3" (click)="voltar()">Voltar</button></div>
+
+        </app-titulo>
 
     <br>
 
@@ -34,7 +33,9 @@
 
   </div>
   <div [ngClass]="{'col-12': !alunoSelecionado, 'col-6': alunoSelecionado}">
-    <app-titulo [tituloMandar]="titulo"></app-titulo>
+    <app-titulo [tituloMandar]="titulo">
+      <div ><button class="btn btn-dark mb-3" (click)="alunoNovo()">Novo aluno</button></div>
+    </app-titulo>
     Nenhum aluno selecionado
     <br>
     <table class="table table-hover">
