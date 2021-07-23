@@ -10,25 +10,25 @@ import { Professor } from '../models/Professor';
 export class ProfessorService {
   public baseUrl: string = environment.UrlPrincipal + '/api/professor'
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-getAll(): Observable<Professor[]> {
-  return this.http.get<Professor[]>(this.baseUrl);
-}
-getById(id: number): Observable<Professor> {
-  return this.http.get<Professor>(`${this.baseUrl}/${id}`);
-}
+  getAll(): Observable<Professor[]> {
+    return this.http.get<Professor[]>(this.baseUrl);
+  }
+  getById(id: number): Observable<Professor> {
+    return this.http.get<Professor>(`${this.baseUrl}/${id}`);
+  }
 
-post(professor: Professor) {
-  return this.http.post(`${this.baseUrl}/`, professor )
-}
+  post(professor: Professor) {
+    return this.http.post(`${this.baseUrl}/`, professor)
+  }
 
-put(id: number, professor: Professor): any {
-  return this.http.put(`${this.baseUrl}/${id}`, professor)
-}
-delete(id: number) {
-  return this.http.delete(`${this.baseUrl}/${id}`)
-}
+  put(professor: Professor): any {
+    return this.http.put(`${this.baseUrl}/${professor.id}`, professor)
+  }
+  delete(id: number) {
+    return this.http.delete(`${this.baseUrl}/${id}`)
+  }
 
 
 

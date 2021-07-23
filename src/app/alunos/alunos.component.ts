@@ -12,32 +12,23 @@ import { AlunoService } from './aluno.service';
 export class AlunosComponent implements OnInit {
 
   public alunoForm!: FormGroup;
-  
-  
+
+
   public titulo: string = '';
   public alunoSelecionado!: Aluno | undefined;
   public textSimple!: string | undefined;
   public modalRef!: BsModalRef;
 
-  public alunos!: Array<Aluno>; 
-  
-  /* [
-    { id: 1, nome: "Marta", sobrenome: "Kent",    telefone: 332255, }, // 1
-    { id: 2, nome: "Paula", sobrenome: "Isabela", telefone: 332255, }, // 2
-    { id: 3, nome: "Laura", sobrenome: "Antonia", telefone: 332255, }, // 3
-    { id: 4, nome: "Luiza", sobrenome: "Maria",   telefone: 332255, }, // 4
-    { id: 5, nome: "Lucas", sobrenome: "Machado", telefone: 332255, }, // 5
-    { id: 6, nome: "Pedro", sobrenome: "Alvares", telefone: 332255, }, // 6
-    { id: 7, nome: "Paulo", sobrenome: "José",    telefone: 332255, }  // 7
-  ] */
+  public alunos!: Array<Aluno>;
+  public modo: string = 'post';
 
 
-   openModal(template: TemplateRef<any>) {
-      this.modalRef = this.modalService.show(template);
-   }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private modalService: BsModalService,
     private alunoService: AlunoService) {
     this.criarForm()
@@ -54,7 +45,7 @@ export class AlunosComponent implements OnInit {
       },
       (error: any) => { // erro
         console.log(error);
-        
+
       }
     )
   }
@@ -64,7 +55,7 @@ export class AlunosComponent implements OnInit {
     this.alunoForm.patchValue(aluno)
   }
 
-  criarForm(){
+  criarForm() {
     this.alunoForm = this.fb.group({
       id: [''],
       nome: ['', Validators.required],
@@ -74,13 +65,14 @@ export class AlunosComponent implements OnInit {
     })
   }
 
-  alunoSubmit(){
+  alunoSubmit() {
     this.salvarAluno(this.alunoForm.value)
-    
+
   }
 
-  public salvarAluno(aluno: Aluno){
-    this.alunoService.put(aluno.id, aluno).subscribe(
+  public salvarAluno(aluno: Aluno) {
+    this.modo = aluno.id===0 ? 'post' : 'put';
+    this.alunoService[aluno.id===0 ? 'post' : 'put'](aluno).subscribe(
       (retorno: Aluno): void => {
         console.log(retorno);
         this.carregarAlunos();
@@ -89,7 +81,7 @@ export class AlunosComponent implements OnInit {
       },
       (error: any): void => {
         console.log(error);
-        
+
       }
     );
   }

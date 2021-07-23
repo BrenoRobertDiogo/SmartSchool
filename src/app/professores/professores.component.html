@@ -1,11 +1,7 @@
   <div *ngIf="professorSelecionado;">
-        <app-titulo [tituloMandar]="'Professor: ' + professorSelecionado.id">
+        <app-titulo [tituloMandar]=" (professorSelecionado.id === undefined || professorSelecionado.id === 0  ? 'Novo professor' : 'Professor: ' + professorSelecionado.id)">
           <div class="col-2"><button class="btn btn-dark mb-3" (click)="voltar()">Voltar</button></div>
         </app-titulo>
-      
-  
-  
-  
     <br>
   
     <form [formGroup]="professorForm" (ngSubmit)="professorSubmit()">
@@ -28,7 +24,7 @@
   </div>
   <div *ngIf="!professorSelecionado;">
     <app-titulo [tituloMandar]="titulo">
-      <div ><button class="btn btn-dark mb-3" (click)="voltar()">Novo professor</button></div>
+      <div ><button class="btn btn-dark mb-3" (click)="professorNovo()">Novo professor</button></div>
     </app-titulo>
     Nenhum Professor selecionado
     <br>
@@ -48,7 +44,7 @@
           <td>
             <button class="btn text-dark btn-sm btn-outline-warning" (click)="professorSelected(professor)">Ver</button>
             <button class="btn btn-sm btn-outline-primary" (click)="openModal(template)">Alunos</button>
-            <button class="btn btn-sm btn-outline-danger">X</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deletar(professor.id)">X</button>
           </td>
         </tr>
       </tbody>

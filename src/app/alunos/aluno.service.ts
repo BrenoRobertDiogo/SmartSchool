@@ -12,7 +12,7 @@ export class AlunoService {
 
 constructor(private http: HttpClient) { }
 
-getAll(): Observable<Aluno[]> {
+getAll(nada?: any): Observable<Aluno[]> {
   return this.http.get<Aluno[]>(this.baseUrl);
 }
 getById(id: number): Observable<Aluno> {
@@ -23,10 +23,10 @@ post(aluno: Aluno) {
   return this.http.post(`${this.baseUrl}/`, aluno )
 }
 
-put(id: number, aluno: Aluno): any {
-  return this.http.put(`${this.baseUrl}/${id}`, aluno)
+put(aluno: Aluno): any {
+  return this.http.put(`${this.baseUrl}/${aluno.id}`, aluno)
 }
-delete(id: number) {
+delete(id: any) {
   return this.http.delete(`${this.baseUrl}/${id}`)
 }
 

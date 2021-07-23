@@ -16,18 +16,12 @@ export class ProfessoresComponent implements OnInit {
   public professorForm!: FormGroup;
 
   public professores!: Array<Professor>;
-  
-  /* [
-    { id: 1,nome: "Lauro",     disciplina: "Matemática"  },
-    { id: 2,nome: "Roberto",   disciplina: "Física"      },
-    { id: 3,nome: "Ronaldo",   disciplina: "Português"   },
-    { id: 4,nome: "Rodrigo",   disciplina: "Inglês"      },
-    { id: 5,nome: "Alexandre", disciplina: "Programação" },
-  ] */
+
+  public modo = 'post';
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
- }
+  }
 
   constructor(
     private modalService: BsModalService,
@@ -46,22 +40,40 @@ export class ProfessoresComponent implements OnInit {
     this.carregarProfessor();
   }
 
-  criarForm(){
+  criarForm() {
     this.professorForm = this.fb.group({
       id: [''],
       nome: [this.professorSelecionado?.nome, Validators.required],
-      
+
 
     })
   }
 
   professorSubmit() {
-    
+
     this.salvarProfessor(this.professorForm.value)
   }
 
-  public salvarProfessor(professor: Professor){
-    this.professorService.put(professor.id, professor).subscribe(
+  professorNovo() {
+    this.professorSelecionado = new Professor()
+    this.professorForm.patchValue(this.professorSelecionado)
+  }
+
+  carregarProfessor() {
+    this.professorService.getAll().subscribe(
+      (professores: Professor[]) => {
+        this.professores = professores
+      },
+      (error: any) => {
+        console.log(error);
+
+      }
+    )
+  }
+
+  public salvarProfessor(professor: Professor) {
+    this.modo = professor.id === 0 ? 'post' : 'put';
+    this.professorService[professor.id === 0 ? 'post' : 'put'](professor).subscribe(
       (retorno: Professor): void => {
         console.log(retorno);
         this.carregarProfessor();
@@ -70,25 +82,24 @@ export class ProfessoresComponent implements OnInit {
       },
       (error: any): void => {
         console.log(error);
-        
+
       }
     );
   }
 
-  carregarProfessor() {
-    this.professorService.getAll().subscribe(
-    (professores: Professor[]) => {
-      this.professores = professores
-    },
-    (error: any) => {
-      console.log(error);
-      
-    }
-    )
-  }
-  
-  public voltar(): void{
+  public voltar(): void {
     this.professorSelecionado = undefined
+  }
+
+  public deletar(id: number) {
+    this.professorService.delete(id).subscribe(
+      (result: any) => {
+        console.log(result);
+        
+        this.carregarProfessor()
+      },
+      (error: any) => {console.log(error)}
+    )
   }
 
 }
